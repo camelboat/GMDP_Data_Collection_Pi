@@ -17,14 +17,19 @@ while True:
     try:
         read_ser=ser.readline()
         data_ser=read_ser.decode('utf-8')
+        
+        # temperature
         if data_ser[0]=="t":
             temperature = float(data_ser[1:])
             print("Temperature is ", temperature, "Celcius degree")
+
+        # any_people, 0 for not detecting people, 1 for detecting people
         elif data_ser[0]=="p":
             any_people = float(data_ser[1:])
             if any_people == 0:
                 print("There is no one in the room")
             else:
                 print("There are someone in the room")
+
     except KeyboardInterrupt:
         break
