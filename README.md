@@ -9,9 +9,10 @@ Current setting of data reading interval is 100ms, which can be modified in the 
 ## Usage
 Typical data transferred from Arduino Uno are:
 
-"t21.23\n" for temperature
-
-"p0\n" for PIR sensor
+```
+"t21.23\n" # for temperature
+"p0\n" # for PIR sensor
+```
 
 After decoding, these values would be stored in variables 
 
