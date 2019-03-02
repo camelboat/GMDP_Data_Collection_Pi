@@ -14,8 +14,9 @@ Typical data transferred from Arduino Uno are:
 "p0\n" for PIR sensor
 
 After decoding, these values would be stored in variables 
-'''python
+
+```python
 float temperature #21.23
 int any_people #0
-'''
+```
 
