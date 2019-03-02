@@ -1,5 +1,5 @@
 # GMDP_Data_Collection_Pi
-
+---
 ## Introduction
 This program is running on raspberry pi, with an Arduino Uno connected to it through serial port
 The default port is /dev/ttyACM0
@@ -13,7 +13,9 @@ Typical data transferred from Arduino Uno are:
 
 "p0\n" for PIR sensor
 
-After decoding, these values would be stored in variables '''float temperature''' and '''int any_people''', for example:
+After decoding, these values would be stored in variables 
+'''python
+float temperature #21.23
+int any_people #0
+'''
 
-21.23 for '''temperature'''
-0 for '''any_people'''
