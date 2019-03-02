@@ -25,7 +25,7 @@ while True:
 
         # any_people, 0 for not detecting people, 1 for detecting people
         elif data_ser[0]=="p":
-            any_people = float(data_ser[1:])
+            any_people = int(data_ser[1:])
             if any_people == 0:
                 print("There is no one in the room")
             else:
