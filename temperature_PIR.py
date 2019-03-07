@@ -39,7 +39,7 @@ while True:
         #print(flag)
 
         # temperature
-        if flag == "t"::ewq
+        if flag == "t":
 
             temperature = float(data_ser[1:])
             #print("Temperature is %f Celcius degree" % temperature)
