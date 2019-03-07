@@ -51,7 +51,7 @@ while True:
         else:
             any_people[int(flag)-1] = int(data_ser[1])
             print(any_people[int(flag)-1])
-            data_list[int(flag)-1].append(any_people[int(flag-1)])
+            data_list[int(flag)-1].append(any_people[int(flag)-1])
 
             count+=1
             if any_people[int(flag)-1] == 1:
