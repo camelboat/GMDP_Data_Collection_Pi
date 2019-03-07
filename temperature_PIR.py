@@ -63,7 +63,7 @@ while True:
 
     except KeyboardInterrupt:
         with open('Temperature_PIR.csv', mode='w') as output_file:
-            output_fd = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             output.writerows(data_list)
         csvFile.close()
         break
