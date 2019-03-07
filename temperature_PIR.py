@@ -20,7 +20,7 @@ read_num = interval * 1000 / delay * 4 # This is not very accurate
 count = 0
 trigger = 0
 
-data_list = [['Temperature'], ['PIR_1'], ['PIR_2'], ['PIR_3'], ['PIR_4']]
+data_list = [['Temperature'],['PIR_1'],['PIR_2'],['PIR_3'],['PIR_4']]
 
 
 # Discard the first ten line data
@@ -51,7 +51,7 @@ while True:
         else:
             any_people[int(flag)-1] = int(data_ser[1])
             print(any_people[int(flag)-1])
-            data_list[int(flag)-1].append(any_people[int(flag)-1])
+            data_list[int(flag)].append(any_people[int(flag)-1])
 
             count+=1
             if any_people[int(flag)-1] == 1:
@@ -62,8 +62,8 @@ while True:
                 trigger = 0
 
     except KeyboardInterrupt:
-        with open('Temperature_PIR.csv', mode='w') as output_file:
+        with open('data.csv', mode='w') as output_file:
             output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            output.writerows(data_list)
-        csvFile.close()
+            output.writerows(zip(*data_list))
+        output_file.close()
         break
