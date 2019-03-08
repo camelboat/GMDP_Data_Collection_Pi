@@ -39,7 +39,7 @@ for i in range(1, 10):
 # count for uploading data
 count = 0
 
-baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field=0'
+baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
 
 
 while True:
@@ -65,11 +65,11 @@ while True:
             data_list[1].append(temperature)
             count+=1
             if count == 10:
-                print(Uploading)
-                thingspeak = urlopen(baseURL + str(temperature)))
+                print("Uploading")
+                thingspeak = urlopen(baseURL + str(temperature))
                 thingspeak.read()
                 thingspeak.close()
-                print(Uploading finish)
+                print("Uploading finish")
                 count = 0
 
         # PIR sensors
