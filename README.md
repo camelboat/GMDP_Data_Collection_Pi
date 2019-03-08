@@ -18,14 +18,24 @@ Typical data transferred from Arduino Uno are:
 "40\r\n"     # for PIR sensor 4
 ```
 
-After decoding, these values would be stored in variables 
+~~After decoding, these values would be stored in variables~~
+After decoding, these values would be stored in data_list[] with a time stamp
 
 ```python
-float temperature # 21.23 (in Celcius degree)
-int any_people[4] # [0,0,0,0] (0 for not detecting people, 1 for detecting people)
-int trigger       # 25 (total trigger numbers within the interval) 
+~~# float temperature # 21.23 (in Celcius degree)~~
+~~# int any_people[4] # [0,0,0,0] (0 for not detecting people, 1 for detecting people)~~
+~~# int trigger       # 25 (total trigger numbers within the interval)~~
+data_list[] # [['Time', 10:21:26:647],['Temperature', 21.23],['PIR_1',1],['PIR_2',0],['PIR_3',0],['PIR_4',0]]
+
 ```
 ## Future Work
+
+### 3/8
+Now the function of counting trigger number would be moved to ThingSpeak, and corresponding part has been removed from this program.
+
+### 3/7
+Currently, we only use delay time set from the Arduino program to count the times that we need to read from the PIR sensors within the interval, but it's not accurate since the reading process also takes time. Maybe the timing function should be totally moved to the program on Pi.
+
+### 3/3
 Since the function of counting people by camera using cv method currently doesn't work well enough, we are thinking about estimating the number of people by the combination of camera videos and PIR data. To do this, we may be going to add four or more PIR sensors in one room, and estimating the amount of people by counting the number of triggers. We are wondering if this computing process should be done on ThingSpeak or be done locally.
 
-Currently, we only use delay time set from the Arduino program to count the times that we need to read from the PIR sensors within the interval, but it's not accurate since the reading process also takes time. Maybe the timing function should be totally moved to the program on Pi.
