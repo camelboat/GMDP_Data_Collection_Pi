@@ -19,12 +19,10 @@ Typical data transferred from Arduino Uno are:
 ```
 
 ~~After decoding, these values would be stored in variables~~
-After decoding, these values would be stored in data_list[] with a time stamp
+
+After decoding, these values would be stored in ```data_list[]``` with a time stamp
 
 ```python
-~~# float temperature # 21.23 (in Celcius degree)~~
-~~# int any_people[4] # [0,0,0,0] (0 for not detecting people, 1 for detecting people)~~
-~~# int trigger       # 25 (total trigger numbers within the interval)~~
 data_list[] # [['Time', 10:21:26:647],['Temperature', 21.23],['PIR_1',1],['PIR_2',0],['PIR_3',0],['PIR_4',0]]
 
 ```
