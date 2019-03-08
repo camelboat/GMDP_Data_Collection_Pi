@@ -7,7 +7,8 @@ import numpy as np
 #import sys
 #import cv2
 #import RPi.GPIO as GPIO
-#import sys
+import sys
+from urllib.request import urlopen
 #mport os
 
 ser = serial.Serial("/dev/ttyACM0",9600)
@@ -35,6 +36,12 @@ def add_time():
 for i in range(1, 10):
     read_ser = ser.readline()
 
+# count for uploading data
+count = 0
+
+baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field=0'
+
+
 while True:
     try:
         read_ser = ser.readline()
@@ -56,6 +63,14 @@ while True:
             #print("Temperature is %f Celcius degree" % temperature)
             #print(temperature)
             data_list[1].append(temperature)
+            count+=1
+            if count == 10:
+                print(Uploading)
+                thingspeak = urlopen(baseURL + str(temperature)))
+                thingspeak.read()
+                thingspeak.close()
+                print(Uploading finish)
+                count = 0
 
         # PIR sensors
         else:
