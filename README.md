@@ -30,6 +30,9 @@ Data would be written to data.csv after the keyboard interupt.
 
 ## Future Work
 
+### 3/13
+Currently the program will output data to data.csv when user terminated the program, so that there will be no data output when the program is running. We are thinking about modify this function to real-time data writing, so csv library may not be neccessary.
+
 ### 3/8
 Now the function of counting trigger number would be moved to ThingSpeak, and corresponding part has been removed from this program. The number of temperature sensors in one room may increase in the next several days.
 

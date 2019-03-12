@@ -86,6 +86,7 @@ while True:
             #    trigger = 0
 
     except KeyboardInterrupt:
+        # Write the whole data_list into data.csv
         with open('data.csv', mode='w') as output_file:
             output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             output.writerows(zip(*data_list))
