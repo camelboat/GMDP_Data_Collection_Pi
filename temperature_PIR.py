@@ -41,7 +41,6 @@ count = 0
 
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
 
-
 while True:
     try:
         read_ser = ser.readline()
