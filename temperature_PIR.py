@@ -45,8 +45,8 @@ while True:
     try:
         read_ser = ser.readline()
         #print(read_ser)
-
-        data_ser = read_ser.decode('utf-8')
+        data_ser = read_ser.decode('ISO-8859-1')
+        #data_ser = read_ser.decode('utf-8')
         flag = data_ser[0]
 
         #print(flag)
