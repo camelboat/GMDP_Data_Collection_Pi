@@ -37,9 +37,10 @@ for i in range(1, 10):
     read_ser = ser.readline()
 
 # count for uploading data
-count = 0
+#count = 0
 
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
+broken_status = 0
 
 while True:
     try:
@@ -48,6 +49,7 @@ while True:
 
         data_ser = read_ser.decode('ISO-8859-1')
         #data_ser = read_ser.decode('utf-8')
+        #print(data_ser)
         flag = data_ser[0]
 
         #print(flag)
@@ -55,28 +57,36 @@ while True:
         # temperature
         if flag == "t":
             now = get_time()
-            print(now)
-            data_list[0].append(now)
-            #add_time()
+            #print(now)
+            #data_list[0].append(now)
 
             temperature = float(data_ser[1:])
+            if temperature == -127:
+                if broken_status == 0:
+                    print("Error: Temperature sensor #1 may be broken")
+                    broken_status = 1
+                else:
+                    pass
+            else:
+                broken_status = 0
             #print("Temperature is %f Celcius degree" % temperature)
-            #print(temperature)
-            data_list[1].append(temperature)
-            count+=1
-            if count == 10:
-                print("Uploading")
-                thingspeak = urlopen(baseURL + str(temperature))
-                thingspeak.read()
-                thingspeak.close()
-                print("Uploading finish")
-                count = 0
+                print("Temperature = " + str(temperature) + u'\u2103')
+                print("")
+            #data_list[1].append(temperature)
+            #count+=1
+            # if count == 100:
+            #     print("Uploading")
+            #     thingspeak = urlopen(baseURL + str(temperature))
+            #     thingspeak.read()
+            #     thingspeak.close()
+            #     print("Uploading finish")
+            #     count = 0
 
         # PIR sensors
         else:
             any_people[int(flag)-1] = int(data_ser[1])
             #print(any_people[int(flag)-1])
-            data_list[int(flag)+1].append(any_people[int(flag)-1])
+            #data_list[int(flag)+1].append(any_people[int(flag)-1])
 
             #count+=1
             #if any_people[int(flag)-1] == 1:
@@ -88,11 +98,10 @@ while True:
 
     except KeyboardInterrupt:
         # Write the whole data_list into data.csv
-        with open('data.csv', mode='w') as output_file:
-            output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            output.writerows(zip(*data_list))
-            #output.writerows(data_list)
-        output_file.close()
+        #with open('data.csv', mode='w') as output_file:
+        #    output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        #    output.writerows(zip(*data_list))
+        #output_file.close()
         break
 
 
