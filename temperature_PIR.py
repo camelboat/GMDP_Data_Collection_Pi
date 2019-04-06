@@ -61,21 +61,21 @@ while True:
 
             temperature = float(data_ser[1:])
             #print("Temperature is %f Celcius degree" % temperature)
-            #print(temperature)
+            print(temperature)
             data_list[1].append(temperature)
-            count+=1
-            if count == 10:
-                print("Uploading")
-                thingspeak = urlopen(baseURL + str(temperature))
-                thingspeak.read()
-                thingspeak.close()
-                print("Uploading finish")
-                count = 0
+            # count+=1
+            # if count == 10:
+            #     print("Uploading")
+            #     thingspeak = urlopen(baseURL + str(temperature))
+            #     thingspeak.read()
+            #     thingspeak.close()
+            #     print("Uploading finish")
+            #     count = 0
 
         # PIR sensors
         else:
             any_people[int(flag)-1] = int(data_ser[1])
-            #print(any_people[int(flag)-1])
+            print(any_people[int(flag)-1])
             data_list[int(flag)+1].append(any_people[int(flag)-1])
 
             #count+=1
