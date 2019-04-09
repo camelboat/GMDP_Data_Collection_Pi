@@ -58,15 +58,7 @@ while True:
             print(temperature)
             data_list[1].append(temperature)
 
-            if time.time() - upload_last > 30:
-                print("uploading")
-                thingspeak = urlopen(baseURL + str(statistics.mean(data_list[1])))
-                thingspeak.read()
-                thingspeak.close()
-                upload_last = time.time()
-                print("Uploading finish")
-            data_list.clear()
-            # count+=1
+           # count+=1
             # if count == 10:
             #     print("Uploading")
             #     thingspeak = urlopen(baseURL + str(temperature))
@@ -88,7 +80,15 @@ while True:
             #    print("In last %d s, PIR sensors have been triggered for %d times" % (interval, trigger))
             #    count = 0
             #    trigger = 0
-
+        if time.time() - upload_last > 30:
+            print("uploading")
+            thingspeak = urlopen(baseURL + str(statistics.mean(data_list[1])))
+            thingspeak.read()
+            thingspeak.close()
+            upload_last = time.time()
+            print("Uploading finish")
+            data_list.clear()
+ 
     except KeyboardInterrupt:
         # Write the whole data_list into data.csv
         with open('data.csv', mode='w') as output_file:
