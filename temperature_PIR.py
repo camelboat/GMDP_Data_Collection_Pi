@@ -90,7 +90,7 @@ while True:
             upload_data(baseURL_PIR, trigger_sum)
             upload_PIR_status = 1
             upload_temperature_status = 0
-            upload_last_PIR = time.time()
+            upload_last = time.time()
 
 
     except KeyboardInterrupt:
