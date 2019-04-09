@@ -30,7 +30,8 @@ for i in range(1, 10):
 # count for uploading data
 count = 0
 
-baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
+baseURL_temperature = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
+baseURL_PIR = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field2=0'
 upload_last_temperature = time.time()
 upload_last_PIR = time.time()
 data_list_temperature = []
@@ -44,7 +45,7 @@ data_list_PIR.append(data_list_PIR_2)
 data_list_PIR.append(data_list_PIR_3)
 data_list_PIR.append(data_list_PIR_4)
 
-def upload_data(data):
+def upload_data(baseURL, data):
     print('uploading')
     thingspeak = urlopen(baseURL + str(data))
     thingspeak.read()
@@ -70,7 +71,7 @@ while True:
             data_list_temperature.append(temperature)
             # update data
             if time.time() - upload_last_temperature > 15:
-                upload_data(statistics.mean(data_list_temperature))
+                upload_data(baseURL_temperature, statistics.mean(data_list_temperature))
                 upload_last_temperature = time.time()
                 data_list_temperature.clear()
  
@@ -83,7 +84,7 @@ while True:
                 trigger_sum = 0
                 for i in range(0, 3):
                     trigger_sum += sum(data_list_PIR[i])
-                upload_data(trigger_sum)
+                upload_data(baseURL_PIR, trigger_sum)
                 upload_last_PIR = time.time()
                 for i in range(0, 3):
                     data_list_PIR[i].clear()
