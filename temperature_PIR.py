@@ -9,19 +9,15 @@ import numpy as np
 #import RPi.GPIO as GPIO
 import sys
 from urllib.request import urlopen
-#mport os
+import time
+import statistics
+#import os
 
 ser = serial.Serial("/dev/ttyACM0",9600)
 ser.baudrate = 9600
 ser.timeout = 2
 status = True
 any_people = [0,0,0,0]
-
-#delay = 100 # ms
-#interval = 5 # s
-#read_num = interval * 1000 / delay * 4 # This is not very accurate 
-#count = 0
-#trigger = 0
 
 data_list = [['Time'],['Temperature'],['PIR_1'],['PIR_2'],['PIR_3'],['PIR_4']]
 
@@ -40,6 +36,7 @@ for i in range(1, 10):
 count = 0
 
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
+upload_last = time.time()
 
 while True:
     try:
@@ -57,12 +54,18 @@ while True:
             now = get_time()
             print(now)
             data_list[0].append(now)
-            #add_time()
-
             temperature = float(data_ser[1:])
-            #print("Temperature is %f Celcius degree" % temperature)
             print(temperature)
             data_list[1].append(temperature)
+
+            if time.time() - upload_last > 30:
+                print("uploading")
+                thingspeak = urlopen(baseURL + str(statistics.mean(data_list[1])))
+                thingspeak.read()
+                thingspeak.close()
+                upload_last = time.time()
+                print("Uploading finish")
+            data_list.clear()
             # count+=1
             # if count == 10:
             #     print("Uploading")
