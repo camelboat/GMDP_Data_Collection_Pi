@@ -83,10 +83,9 @@ while True:
             trigger_sum = 0
             for i in range(0, 3):
                 trigger_sum += sum(data_list_PIR[i])
+                data_list_PIR[i].clear
             upload_data(baseURL_PIR, trigger_sum)
             upload_last_PIR = time.time()
-            for i in range(0, 3):
-                data_list_PIR[i].clear()
 
 
     except KeyboardInterrupt:
