@@ -8,7 +8,7 @@ import numpy as np
 #import cv2
 #import RPi.GPIO as GPIO
 import sys
-from urllib.request import urlopen
+import requests
 import time
 import statistics
 #import os
@@ -48,9 +48,8 @@ data_list_PIR.append(data_list_PIR_4)
 
 def upload_data(baseURL, data):
     print('uploading')
-    thingspeak = urlopen(baseURL + str(data))
-    thingspeak.read()
-    thingspeak.close()
+    thingspeak = requests.get(baseURL + str(data))
+    print(thingspeak.content)
     print('upload finish')
 
 while True:
