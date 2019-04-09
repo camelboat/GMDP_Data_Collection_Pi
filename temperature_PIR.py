@@ -31,7 +31,8 @@ for i in range(1, 10):
 count = 0
 
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
-upload_last = time.time()
+upload_last_temperature = time.time()
+upload_last_PIR = time.time()
 data_list_temperature = []
 data_list_PIR = []
 data_list_PIR_1 = []
@@ -42,6 +43,13 @@ data_list_PIR.append(data_list_PIR_1)
 data_list_PIR.append(data_list_PIR_2)
 data_list_PIR.append(data_list_PIR_3)
 data_list_PIR.append(data_list_PIR_4)
+
+def upload_data(data):
+    print('uploading')
+    thingspeak = urlopen(baseURL + str(data))
+    thingspeak.read()
+    thingspeak.close()
+    print('upload finish')
 
 while True:
     try:
@@ -56,29 +64,28 @@ while True:
 
         # temperature
         if flag == "t":
-            now = get_time()
-            print(now)
+            print(get_time())
             temperature = float(data_ser[1:])
             print(temperature)
-            #data_list[1].append(temperature)
             data_list_temperature.append(temperature)
-
+            # update data
+            if time.time() - upload_last_temperature > 15:
+                upload_data(statistics.mean(data_list_temperature))
+                upload_last_temperature = time.time()
+                data_list_temperature.clear()
+ 
         # PIR sensors
         else:
             any_people[int(flag)-1] = int(data_ser[1])
             print(any_people[int(flag)-1])
             data_list_PIR[int(flag)-1].append(any_people[int(flag)-1])
+            if time.time() - upload_last_PIR > 15:
+                upload_data(statistics.sum(data_list_PIR))
+                upload_last_PIR = time.time()
+                for i in range (0:3):
+                    data_list_PIR[i].clear()
 
-        # update data
-        if time.time() - upload_last > 30:
-            print("uploading")
-            thingspeak = urlopen(baseURL + str(statistics.mean(data_list_temperature)))
-            thingspeak.read()
-            thingspeak.close()
-            upload_last = time.time()
-            print("Uploading finish")
-            data_list_temperature.clear()
- 
+
     except KeyboardInterrupt:
         # Write the whole data_list into data.csv
         with open('data.csv', mode='w') as output_file:
