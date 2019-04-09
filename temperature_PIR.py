@@ -73,7 +73,7 @@ while True:
         else:
             any_people[int(flag)-1] = int(data_ser[1])
             print(any_people[int(flag)-1])
-            data_list_PIR[int(flag)+1].append(any_people[int(flag)-1])
+            data_list_PIR[int(flag)-1].append(any_people[int(flag)-1])
 
         # update data
         if time.time() - upload_last > 30:
