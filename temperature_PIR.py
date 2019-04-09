@@ -79,7 +79,6 @@ while True:
             print('upload temperature')
             upload_data(baseURL_temperature, statistics.mean(data_list_temperature))
             upload_temperature_status = 1
-            upload_PIR_status = 0
             data_list_temperature.clear()
         elif (time.time() - upload_last >= 30) and (upload_PIR_status == 0):
             print('upload_PIR')
@@ -88,7 +87,6 @@ while True:
                 trigger_sum += sum(data_list_PIR[i])
                 data_list_PIR[i].clear
             upload_data(baseURL_PIR, trigger_sum)
-            upload_PIR_status = 1
             upload_last_PIR = time.time()
 
 
