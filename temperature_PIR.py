@@ -38,7 +38,15 @@ count = 0
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
 upload_last = time.time()
 data_list_temperature = []
-data_list_PIR = [[][]]
+data_list_PIR = []
+data_list_PIR_1 = []
+data_list_PIR_2 = []
+data_list_PIR_3 = []
+data_list_PIR_4 = []
+data_list_PIR.append(data_list_PIR_1)
+data_list_PIR.append(data_list_PIR_2)
+data_list_PIR.append(data_list_PIR_3)
+data_list_PIR.append(data_list_PIR_4)
 
 while True:
     try:
