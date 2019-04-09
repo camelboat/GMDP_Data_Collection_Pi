@@ -19,13 +19,8 @@ ser.timeout = 2
 status = True
 any_people = [0,0,0,0]
 
-data_list = [['Time'],['Temperature'],['PIR_1'],['PIR_2'],['PIR_3'],['PIR_4']]
-
 def get_time():
     return datetime.now().strftime("%H:%M:%S:%f")[:-3]
-
-def add_time():
-    data_list[0].append(get_time())
 
 # Discard the first ten line data
 # to avoid format problem
@@ -63,7 +58,6 @@ while True:
         if flag == "t":
             now = get_time()
             print(now)
-            data_list[0].append(now)
             temperature = float(data_ser[1:])
             print(temperature)
             #data_list[1].append(temperature)
@@ -83,7 +77,7 @@ while True:
             thingspeak.close()
             upload_last = time.time()
             print("Uploading finish")
-            data_list.clear()
+            data_list_temperature.clear()
  
     except KeyboardInterrupt:
         # Write the whole data_list into data.csv
