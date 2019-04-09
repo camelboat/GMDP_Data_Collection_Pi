@@ -80,10 +80,7 @@ while True:
             print(any_people[int(flag)-1])
             data_list_PIR[int(flag)-1].append(any_people[int(flag)-1])
             if time.time() - upload_last_PIR > 15:
-                trigger_sum = 0
-                for i in range(0, 3):
-                    trigger_sum += statistics.sum(data_list_PIR[i])
-                upload_data(trigger_sum)
+                upload_data(sum(data_list_PIR))
                 upload_last_PIR = time.time()
                 for i in range(0, 3):
                     data_list_PIR[i].clear()
