@@ -82,7 +82,7 @@ while True:
             if time.time() - upload_last_PIR > 15:
                 upload_data(statistics.sum(data_list_PIR))
                 upload_last_PIR = time.time()
-                for i in range (0:3):
+                for i in range(0, 3):
                     data_list_PIR[i].clear()
 
 
