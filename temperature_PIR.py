@@ -33,6 +33,8 @@ count = 0
 baseURL_temperature = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
 baseURL_PIR = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field2=0'
 upload_last = time.time()
+upload_temperature_status = 0
+upload_PIR_status = 0
 data_list_temperature = []
 data_list_PIR = []
 data_list_PIR_1 = []
@@ -74,17 +76,20 @@ while True:
             data_list_PIR[int(flag)-1].append(any_people[int(flag)-1])
 
         # update data
-        if (time.time() - upload_last > 15) and (time.time() - upload_last < 30):
+        if (time.time() - upload_last > 15) and (time.time() - upload_last < 30) and (upload_temperature_status == 0):
             print('upload temperature')
             upload_data(baseURL_temperature, statistics.mean(data_list_temperature))
+            upload_temperature_status = 1
+            upload_PIR_status = 0
             data_list_temperature.clear()
-        elif time.time() - upload_last >= 30:
+        elif (time.time() - upload_last >= 30) and (upload_PIR_status == 0):
             print('upload_PIR')
             trigger_sum = 0
             for i in range(0, 3):
                 trigger_sum += sum(data_list_PIR[i])
                 data_list_PIR[i].clear
             upload_data(baseURL_PIR, trigger_sum)
+            upload_PIR_status = 1
             upload_last_PIR = time.time()
 
 
