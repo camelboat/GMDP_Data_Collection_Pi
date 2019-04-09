@@ -65,13 +65,13 @@ while True:
         if flag == "t":
             print(get_time())
             temperature = float(data_ser[1:])
-            print(temperature)
+            #print(temperature)
             data_list_temperature.append(temperature)
  
         # PIR sensors
         else:
             any_people[int(flag)-1] = int(data_ser[1])
-            print(any_people[int(flag)-1])
+            #print(any_people[int(flag)-1])
             data_list_PIR[int(flag)-1].append(any_people[int(flag)-1])
 
         # update data
