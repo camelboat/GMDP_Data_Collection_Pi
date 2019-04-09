@@ -54,8 +54,6 @@ def upload_data(baseURL, data):
 while True:
     try:
         read_ser = ser.readline()
-        #print(read_ser)
-
         data_ser = read_ser.decode('ISO-8859-1')
         #data_ser = read_ser.decode('utf-8')
         flag = data_ser[0]
@@ -77,9 +75,11 @@ while True:
 
         # update data
         if (time.time() - upload_last > 15) and (time.time() - upload_last < 30):
+            print(upload temperature)
             upload_data(baseURL_temperature, statistics.mean(data_list_temperature))
             data_list_temperature.clear()
-        elif time.time() - upload_last > 30:
+        elif time.time() - upload_last >= 30:
+            print(upload_PIR)
             trigger_sum = 0
             for i in range(0, 3):
                 trigger_sum += sum(data_list_PIR[i])
