@@ -37,6 +37,8 @@ count = 0
 
 baseURL = 'https://api.thingspeak.com/update?api_key=T9PJ3W9K7NSQ6AT8&field1=0'
 upload_last = time.time()
+data_list_temperature
+data_list_PIR
 
 while True:
     try:
@@ -56,16 +58,8 @@ while True:
             data_list[0].append(now)
             temperature = float(data_ser[1:])
             print(temperature)
-            data_list[1].append(temperature)
-
-           # count+=1
-            # if count == 10:
-            #     print("Uploading")
-            #     thingspeak = urlopen(baseURL + str(temperature))
-            #     thingspeak.read()
-            #     thingspeak.close()
-            #     print("Uploading finish")
-            #     count = 0
+            #data_list[1].append(temperature)
+            data_list_temperature.append(temperature)
 
         # PIR sensors
         else:
@@ -73,16 +67,10 @@ while True:
             print(any_people[int(flag)-1])
             data_list[int(flag)+1].append(any_people[int(flag)-1])
 
-            #count+=1
-            #if any_people[int(flag)-1] == 1:
-            #    trigger+=1
-            #if count == read_num:
-            #    print("In last %d s, PIR sensors have been triggered for %d times" % (interval, trigger))
-            #    count = 0
-            #    trigger = 0
+        # update data
         if time.time() - upload_last > 30:
             print("uploading")
-            thingspeak = urlopen(baseURL + str(statistics.mean(data_list[1])))
+            thingspeak = urlopen(baseURL + str(statistics.mean(data_list_temperature)))
             thingspeak.read()
             thingspeak.close()
             upload_last = time.time()
