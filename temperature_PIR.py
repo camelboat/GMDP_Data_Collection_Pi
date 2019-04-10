@@ -87,7 +87,7 @@ while True:
             for i in range(0, 3):
                 trigger_sum += sum(data_list_PIR[i])
                 print('add' + str(data_list_PIR[i]))
-                data_list_PIR[i].clear
+                data_list_PIR[i].clear()
             upload_data(baseURL_PIR, trigger_sum)
             upload_PIR_status = 1
             upload_temperature_status = 0
@@ -95,12 +95,6 @@ while True:
 
 
     except KeyboardInterrupt:
-        # Write the whole data_list into data.csv
-        with open('data.csv', mode='w') as output_file:
-            output = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            output.writerows(zip(*data_list))
-            #output.writerows(data_list)
-        output_file.close()
         break
 
 
