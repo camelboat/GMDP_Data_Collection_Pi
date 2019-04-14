@@ -49,7 +49,7 @@ while True:
 
         data_ser = read_ser.decode('ISO-8859-1')
         #data_ser = read_ser.decode('utf-8')
-        #print(data_ser)
+        print(data_ser)
         flag = data_ser[0]
 
         #print(flag)
@@ -70,8 +70,8 @@ while True:
             else:
                 broken_status = 0
             #print("Temperature is %f Celcius degree" % temperature)
-                print("Temperature = " + str(temperature) + u'\u2103')
-                print("")
+                #print("Temperature = " + str(temperature) + u'\u2103')
+                #print("")
             #data_list[1].append(temperature)
             #count+=1
             # if count == 100:
@@ -85,7 +85,8 @@ while True:
         # PIR sensors
         else:
             any_people[int(flag)-1] = int(data_ser[1])
-            #print(any_people[int(flag)-1])
+            if flag == '1':
+                print(any_people[int(flag)-1])
             #data_list[int(flag)+1].append(any_people[int(flag)-1])
 
             #count+=1
